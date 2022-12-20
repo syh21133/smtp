@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Movie">
+	
+	<!-- MOV004 : 영화 추가 -->
+	<insert id="mvAdd" parameterType="movie">
+		INSERT INTO MOVIE VALUES(#{mvTitle},#{mvTime},#{mvGenre}
+		,#{mvDate},#{mvDirector},#{mvGrade},#{mvContent},#{mvAttendence})
+	</insert>
+	
+	<!-- MOV010 : 영화 정보 상세보기 -->
+	<select id="mvView" parameterType="String" resultType="movie">
+		SELECT * FROM MOVIE WHERE MVTITLE = #{mvTitle}
+	</select>
+	
+	<select id="mvbook"  resultType="cinema">
+	
+		SELECT DISTINCT CIREGION FROM CINEMA
+		
+	</select>
+	
+	<select id="mvList" parameterType="all" resultType="movie">
+	
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM MOVIE) A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+		
+	</select>
+	
+	<select id="mvCount"  resultType="int">
+		 SELECT COUNT(*) FROM MOVIE
+	</select>
+	
+	
+	
+	
+	
+</mapper>

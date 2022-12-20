@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="USERS">
+	
+	<insert id="memJoin" parameterType="users">
+		INSERT INTO USERS
+		VALUES(#{userId},#{userPw},#{userName},#{userBirth},#{userGender},#{userEmail},#{userProfileName})
+	</insert>
+
+	<select id="checkId" parameterType="String" resultType="String">
+		SELECT
+		USERID FROM USERS WHERE USERID=#{userId}
+	</select>
+
+	<select id="memberLogin" parameterType="users" resultType="users">
+		SELECT USERPW,USERPROFILENAME FROM USERS WHERE USERID=#{userId}
+	</select>
+
+	<select id="memberMyView" parameterType="String"
+		resultType="users">
+		SELECT * FROM USERS WHERE USERID = #{userId}
+	</select>
+	
+	<delete id="memDel" parameterType="String">
+		DELETE FROM USERS WHERE USERID = #{userId}
+	</delete>
+	
+	<update id="memModi" parameterType="users">
+		UPDATE USERS SET USERPW = #{userPw}, USERNAME = #{userName}, USERBIRTH = #{userBirth},
+		USERGENDER = #{userGender} , USEREMAIL = #{userEmail},USERPROFILENAME=#{userProfileName} WHERE USERID= #{userId}
+	</update>
+	
+	<select id="bookList" parameterType="all" resultType="all">
+		<!-- select * from BOOK INNER JOIN TICKET ON book.botinum = ticket.ticnum INNER JOIN MOVIE ON ticket.tictitle = movie.mvtitle INNER JOIN CINEMA ON ticket.ticnum = cinema.cinum WHERE bookid = #{userId} -->
+		SELECT * FROM (SELECT ROWNUM AS RN, A.* FROM (select * from BOOK INNER JOIN TICKET2 ON book.botinum = ticket2.ticnum INNER JOIN MOVIE ON ticket2.tictitle = movie.mvtitle INNER JOIN CINEMA ON ticket2.ticinum = cinema.cinum WHERE BOOKID = #{userId} ORDER BY BOOKNUM DESC) A)WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="mybookCount" parameterType="String" resultType="int">
+		 SELECT COUNT(*) FROM(select * from BOOK INNER JOIN TICKET2 ON book.botinum = ticket2.ticnum INNER JOIN MOVIE ON ticket2.tictitle = movie.mvtitle INNER JOIN CINEMA ON ticket2.ticinum = cinema.cinum WHERE BOOKID = #{userId})
+	</select>
+	
+	
+	
+</mapper>

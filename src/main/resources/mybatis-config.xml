@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<typeAliases>		
+		
+		
+		<typeAlias type="com.icia.smtp.dto.MOVIE2" alias="movie2"/>
+		<typeAlias type="com.icia.smtp.dto.ACTOR" alias="actor"/>
+		<typeAlias type="com.icia.smtp.dto.BOOK" alias="book"/>
+		<typeAlias type="com.icia.smtp.dto.CASTS" alias="casts"/>
+		<typeAlias type="com.icia.smtp.dto.CINEMA" alias="cinema"/>
+		<typeAlias type="com.icia.smtp.dto.FAVORITES" alias="favorites"/>
+		<typeAlias type="com.icia.smtp.dto.MOVIE" alias="movie"/>
+		<typeAlias type="com.icia.smtp.dto.MOVIEPOSTER" alias="movieposter"/>
+		<typeAlias type="com.icia.smtp.dto.MOVIETEASER" alias="movieteaser"/>
+		<typeAlias type="com.icia.smtp.dto.QUEST" alias="quest"/>
+		<typeAlias type="com.icia.smtp.dto.REPQUE" alias="repque"/>
+		<typeAlias type="com.icia.smtp.dto.TICKET" alias="ticket"/>
+		<typeAlias type="com.icia.smtp.dto.USERS" alias="users"/>
+		<typeAlias type="com.icia.smtp.dto.REVIEW" alias="review"/>
+		<typeAlias type="com.icia.smtp.dto.NOTICE" alias="notice"/>
+		<typeAlias type="com.icia.smtp.dto.PAGE" alias="page"/>
+		<typeAlias type="com.icia.smtp.dto.WHERE" alias="where"/>
+		<typeAlias type="com.icia.smtp.dto.ALL" alias="all"/>
+		<typeAlias type="com.icia.smtp.dto.SEARCHFORTICKET" alias="searchforticket"/>
+	
+</typeAliases>
+
+</configuration>

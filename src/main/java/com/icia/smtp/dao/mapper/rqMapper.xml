@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Repque">
+	
+	<!-- 자주찾는질문 상세보기  -->
+	<select id="rqView" parameterType="int" resultType="repque">
+		SELECT * FROM REPQUE WHERE RQNUM = #{rqNum}
+	</select>
+	
+	<!-- 자주찾는질문 조회수 증가 -->
+	<update id="rqHit" parameterType="int">
+		UPDATE REPQUE SET RQHIT = RQHIT + 1 WHERE RQNUM = #{rqNum}
+	</update>
+	
+	<!-- 자주찾는질문 삭제 -->
+	<delete id="rqDelete" parameterType="int">
+		DELETE FROM REPQUE WHERE RQNUM = #{rqNum}
+	</delete>
+	
+	<!-- 추가 -->
+	<!-- 자주찾는질문 작성 -->
+	<insert id="rqWrite" parameterType="repque">
+		INSERT INTO REPQUE VALUES(REQ_SEQ.NEXTVAL, #{rqTitle}, #{rqContent}, SYSDATE, 0)
+	</insert>
+	
+	
+	
+</mapper>

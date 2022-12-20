@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Review">
+	
+	<!-- 리뷰 가져오기 -->
+	<select id="rvList" parameterType="String" resultType="review">
+		SELECT REVIEW.*, USERS.USERPROFILENAME FROM REVIEW,USERS WHERE REVIEW.RVID = USERS.USERID AND RVTITLE = #{rvTitle} ORDER BY RVDATE DESC
+	</select>
+	
+	<!-- 리뷰 갯수 가져오기 -->
+	<select id="rvCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM REVIEW WHERE RVTITLE = #{rvTitle}
+	</select>
+	
+	<!-- 리뷰 작성하기 -->
+	<insert id="rvWrite" parameterType="review">
+		INSERT INTO REVIEW VALUES(RV_SEQ.NEXTVAL,#{rvId},#{rvContent}
+		,SYSDATE,#{rvGrade},#{rvTitle})
+	</insert>
+	
+	<!-- 리뷰 삭제하기 -->
+	<delete id="rvDelete" parameterType="review">
+		DELETE FROM REVIEW WHERE RVTITLE = #{rvTitle} AND RVNUM = #{rvNum}
+	</delete>
+	
+	
+</mapper>

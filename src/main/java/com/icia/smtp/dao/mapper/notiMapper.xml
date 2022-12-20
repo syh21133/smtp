@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Notice">
+	
+
+	<!-- 공지사항 상세보기  -->
+	<select id="notiView" parameterType="int" resultType="notice">
+		SELECT * FROM NOTICE WHERE NOTINUM = #{notiNum}
+	</select>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="notiDelete" parameterType="int">
+		DELETE FROM NOTICE WHERE NOTINUM = #{notiNum}
+	</delete>
+	
+	<insert id="notiWrite" parameterType="notice">
+		INSERT INTO NOTICE VALUES(NOTI_SEQ.NEXTVAL, #{notiTitle}, #{notiContent}, SYSDATE, #{notiWriter})
+	</insert>
+	
+	
+	
+</mapper>

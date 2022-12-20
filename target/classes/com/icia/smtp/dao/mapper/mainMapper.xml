@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MAIN">
+
+	<!-- 모든 영화중 조회수 top5 찾기 -->
+	<select id="alltopfive" resultType="movie2">
+		select * from (select MOVIE.* from MOVIE order by MVATTENDENCE DESC) where 5>=ROWNUM
+	</select>
+
+	<select id="atList" resultType="movie">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM MOVIE ORDER BY MVATTENDENCE DESC) A) WHERE RN BETWEEN 1 AND 5
+	</select>
+	
+	<select id="dateList" resultType="movie">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM MOVIE ORDER BY MVDATE DESC) A) WHERE RN BETWEEN 1 AND 5
+	</select>
+	
+	<select id="quList" parameterType="String" resultType="quest">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QUEST WHERE QUID = #{userId} ORDER BY QUDATE DESC) A) WHERE RN BETWEEN 1 AND 10
+	</select>
+	
+	<select id="notiList" resultType="notice">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM NOTICE ORDER BY NOTIDATE DESC) A) WHERE RN BETWEEN 1 AND 5
+	</select>
+	
+	<select id="rqList" resultType="repque">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM REPQUE ORDER BY RQHIT DESC) A) WHERE RN BETWEEN 1 AND 5
+	</select>
+	
+	<select id="adquList" resultType="quest">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM QUEST ORDER BY QUDATE DESC) A) WHERE RN BETWEEN 1 AND 10
+	</select>
+</mapper>

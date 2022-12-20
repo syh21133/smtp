@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Book">
+	
+	
+	<insert id="tiBook" parameterType="book">
+		INSERT INTO BOOK VALUES(BOOK_SEQ.NEXTVAL,#{bookId},#{botiNum})
+	</insert>
+	
+	
+	<select id="ticket" parameterType="book" resultType="ticket">
+		SELECT * FROM TICKET WHERE TICNUM= #{botiNum}
+	</select>
+	
+	<update id="mvat" parameterType="String">
+		UPDATE MOVIE SET MVATTENDENCE = MVATTENDENCE + 1 WHERE MVTITLE = #{ticket.getTicTitle()}
+	</update>
+	
+	<update id="tiseat" parameterType="ticket">
+		UPDATE TICKET SET TICSEAT = TICSEAT - 1 WHERE TICNUM = #{ticket.getTicNum()} 
+	</update>
+	
+	<delete id="bookDelete" parameterType="String">
+		DELETE FROM BOOK WHERE bookNum=#{bookNum}
+	</delete>
+	
+	
+	
+</mapper>

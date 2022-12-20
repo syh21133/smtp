@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TICKET">
+
+	<!-- 검색된 게시글 개수 확인 -->
+	<select id="tiCount" parameterType="searchforticket"
+		resultType="int">
+		select count(*) from (
+		SELECT Distinct m.* FROM TICKET t, MOVIE m, CINEMA c 
+		where
+		t.ticTitle = m.mvTitle AND t.ticiNum = c.ciNum 
+		${where})
+	</select>
+
+	<!-- 검색된 게시글 페이징 처리 -->
+	<select id="tipList" parameterType="searchforticket"
+		resultType="movie2">
+		SELECT * FROM
+		(SELECT ROWNUM AS RN, A.* FROM
+		(SELECT Distinct m.* FROM TICKET t, MOVIE m, CINEMA c
+		where t.ticTitle = m.mvTitle
+		AND t.ticiNum = c.ciNum
+		${where}${methodForSort})A
+		)WHERE RN BETWEEN
+		#{startRow} and #{endRow}
+	</select>
+	
+	
+	<select id="cnList" parameterType="String" resultType="cinema">
+		SELECT
+		DISTINCT CINAME,CINEMANUM FROM CINEMA WHERE CIREGION=#{ciRegion}
+	</select>
+
+	<select id="ciDate" parameterType="cinema" resultType="int">
+		SELECT
+		DISTINCT CINEMANUM FROM CINEMA WHERE CIREGION=#{ciRegion} AND
+		CINAME=#{ciName}
+	</select>
+
+	<select id="tiDate" parameterType="ticket" resultType="ticket">
+		SELECT
+		DISTINCT TICDATE,TCINEMANUM FROM TICKET WHERE TCINEMANUM=#{tcinemaNum}
+		AND TICTITLE=#{ticTitle} ORDER BY TICDATE
+	</select>
+
+	<select id="tiDate2" parameterType="ticket" resultType="ticket">
+		SELECT
+		DISTINCT TICDATE,TCINEMANUM FROM TICKET WHERE TCINEMANUM=#{tcinemaNum}
+		ORDER BY TICDATE
+	</select>
+
+	<select id="ciRoom" parameterType="int" resultType="cinema">
+		SELECT
+		DISTINCT CIROOM,CINUM FROM CINEMA WHERE CINEMANUM = #{tcinemaNum}
+		ORDER BY CIROOM
+	</select>
+
+
+	<select id="ciTime" parameterType="ticket" resultType="ticket">
+		SELECT TICTIME FROM TICKET WHERE TICINUM = #{ticiNum} AND TICDATE = #{ticDate} AND TICTITLE = #{ticTitle} ORDER BY TICTIME 
+	</select>
+
+	<select id="tiList" parameterType="ticket" resultType="ticket">
+		SELECT *
+		FROM TICKET WHERE TICINUM = #{ticiNum} AND TICDATE = #{ticDate} AND
+		TICTIME = #{ticTime} AND TICTITLE = #{ticTitle}
+	</select>
+
+	<select id="ciList" parameterType="ticket" resultType="cinema">
+		SELECT *
+		FROM CINEMA WHERE CINUM = #{ticiNum}
+	</select>
+
+	<select id="mvList" parameterType="ticket" resultType="movie">
+		SELECT *
+		FROM MOVIE WHERE MVTITLE = #{ticTitle}
+	</select>
+	
+	<select id="allregion" resultType="cinema">
+		SELECT DISTINCT CIREGION FROM CINEMA
+	</select>
+	
+	<select id="movie" parameterType="String" resultType="movie">
+		SELECT * FROM MOVIE WHERE MVTITLE = #{mvTitle}
+	</select>
+</mapper>
